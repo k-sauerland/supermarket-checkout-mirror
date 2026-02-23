@@ -13,7 +13,7 @@ import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/co
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatLabel, MatDialogModule, ConfirmationDialogComponent],
+  imports: [CommonModule, FormsModule, MatLabel, MatDialogModule],
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.scss']
 })

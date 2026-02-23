@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed, inject, effect } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderService } from '../service/order.service';
 import { CartItem } from '../models/cart-item.model';
@@ -12,7 +12,7 @@ export class CartState {
   private orderService = inject(OrderService);
   private offerState = inject(OfferState);
 
-  private cartItems = signal<CartItem[]>([]);
+  private cartItems = signal<CartItem[]>(this.loadCartFromStorage());
 
   private weeklyOffers = this.offerState.offers;
   public readonly items = this.cartItems.asReadonly();
@@ -22,6 +22,12 @@ export class CartState {
       return total + CartCalculator.calculateItemSubtotal(item, this.weeklyOffers());
     }, 0);
   });
+
+  constructor() {
+    effect(() => {
+      this.saveCartToStorage(this.cartItems());
+    });
+  }
 
   addToCart(product: Product, quantity: number) {
     this.cartItems.update(items => {
@@ -60,5 +66,14 @@ export class CartState {
 
   checkout(customer: Customer): Observable<any> {
     return this.orderService.placeOrder(this.cartItems(), customer);
+  }
+
+  private loadCartFromStorage(): CartItem[] {
+    const stored = localStorage.getItem('cart_items');
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  private saveCartToStorage(items: CartItem[]) {
+    localStorage.setItem('cart_items', JSON.stringify(items));
   }
 }
