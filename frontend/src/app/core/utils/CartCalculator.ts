@@ -13,8 +13,13 @@ export class CartCalculator {
 
     if (this.isOfferActive(item, offers) && offer) {
       const priceForOfferBundle = offer.offerPrice;
-      const remainingQuantity = item.quantity - offer.requiredQuantity;
-      return priceForOfferBundle + (remainingQuantity * item.price);
+      let offerCounter = 0;
+      let remainingQuantity = item.quantity
+      while (remainingQuantity >= offer.requiredQuantity) {
+        offerCounter++;
+        remainingQuantity = remainingQuantity - offer.requiredQuantity;
+      }
+      return (priceForOfferBundle * offerCounter) + (remainingQuantity * item.price);
     }
 
     return item.quantity * item.price;

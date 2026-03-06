@@ -102,10 +102,15 @@ public class OrderServiceImpl implements OrderService {
         for (WeeklyOffer offer : activeOffers) {
             if (offer.getProduct().getId().equals(orderItem.getProductId()) && orderItem.getQuantity() >= offer.getRequiredQuantity()) {
                 BigDecimal priceForOfferBundle = offer.getOfferPrice();
-                int remainingQty = orderItem.getQuantity() - offer.getRequiredQuantity();
+                int remainingQty = orderItem.getQuantity();
+                int offerCount = 0;
+                while (remainingQty >= offer.getRequiredQuantity()) {
+                    remainingQty = remainingQty - offer.getRequiredQuantity();
+                    offerCount++;
+                }
                 BigDecimal remainingPrice = orderItem.getOriginalPrice().multiply(BigDecimal.valueOf(remainingQty));
-                BigDecimal finalPrice = priceForOfferBundle.add(remainingPrice);
-
+                BigDecimal finalPrice = priceForOfferBundle.multiply(BigDecimal.valueOf(offerCount)).add(remainingPrice);
+                System.out.println(finalPrice);
                 orderItem.setFinalPrice(finalPrice);
                 orderItem.setDiscountAmount(orderItem.getTotalOriginalPrice().subtract(finalPrice));
                 orderItem.setAppliedOffer(offer);
