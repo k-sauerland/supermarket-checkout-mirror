@@ -30,7 +30,7 @@ jobs:
     - name: mvnw execute permission
       run: chmod +x ./backend/mvnw
     - name: Build with Maven
-      run: ./backend/mvnw -B clean package --no-transfer-progress
+      run: ./backend/mvnw -B clean package --file backend/pom.xml --no-transfer-progress
       # run: mvn -B package --file backend/pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
