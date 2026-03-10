@@ -129,6 +129,9 @@ class OrderServiceImplTest {
         assertEquals(new BigDecimal("0.80"), result.getTotalDiscountAmount());
         assertNotNull(result.getCustomer());
 
+        // Test Breaker
+        assertEquals(1,2)
+
         verify(orderRepository, times(1)).save(any(Order.class));
     }
 }
