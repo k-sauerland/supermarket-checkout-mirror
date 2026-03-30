@@ -26,8 +26,8 @@ public class Order {
     private BigDecimal totalDiscountAmount;
     private BigDecimal finalTotalPrice;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

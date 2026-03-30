@@ -24,4 +24,8 @@ public class Customer {
     private String country;
     private String phoneNumber;
     private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }
