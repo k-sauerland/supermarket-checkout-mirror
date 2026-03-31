@@ -21,7 +21,7 @@ import java.util.function.Function;
 @Component
 public class JWTUtils {
 
-    @Value("${app.jwt.secretKey}")
+    @Value("${app.jwt.secret}")
     private String jwtSecretKey;
     private SecretKey getSecretKey() {
         return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));

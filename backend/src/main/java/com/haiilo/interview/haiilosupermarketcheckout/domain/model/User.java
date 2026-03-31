@@ -28,7 +28,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    private String role;
+    @Column(nullable = false)
+    private String role = "USER";
 
     // UserDetails Interface Methods
 
