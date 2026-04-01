@@ -6,22 +6,18 @@ import com.haiilo.interview.haiilosupermarketcheckout.api.dto.SignupRequestDTO;
 import com.haiilo.interview.haiilosupermarketcheckout.domain.model.User;
 import com.haiilo.interview.haiilosupermarketcheckout.infrastructure.persistence.UserRepository;
 import com.haiilo.interview.haiilosupermarketcheckout.infrastructure.security.JWTUtils;
-import io.jsonwebtoken.security.Password;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthenticationManager authenticationManager;
