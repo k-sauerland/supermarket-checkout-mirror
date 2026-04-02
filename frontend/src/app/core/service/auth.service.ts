@@ -10,7 +10,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<any> {
-    console.log('Final URL being called:', this.AUTH_API + 'login');
     return this.http.post(this.AUTH_API + 'login', {
       username: username,
       password: password
@@ -22,6 +21,13 @@ export class AuthService {
       })
     );
   }
+  register(username: string, password: string): Observable<any> {
+    return this.http.post(this.AUTH_API + 'register', {
+      username: username,
+      password: password},
+      {responseType: 'text'}
+      );
+    }
   isLoggedIn(): boolean {
     return !!localStorage.getItem('id_token');
   }

@@ -1,0 +1,57 @@
+<div class="auth-layout">
+  <div class="auth-card">
+    <h2>{{ isLoginMode ? 'Sign In' : 'Create Account' }}</h2>
+
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          ngModel
+          required
+          placeholder="Enter username">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          ngModel
+          required
+          placeholder="Enter password">
+      </div>
+
+      <div class="form-group" *ngIf="!isLoginMode">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          ngModel
+          required
+          placeholder="Confirm password">
+      </div>
+
+      <button type="submit" class="auth-button" [disabled]="!authForm.valid">
+        {{ isLoginMode ? 'Login' : 'Register' }}
+      </button>
+
+      <div class="toggle-link">
+        <p *ngIf="isLoginMode">
+          Not a member?
+          <a (click)="onHandleMode()">Register here!</a>
+        </p>
+        <p *ngIf="!isLoginMode">
+          Already have an account?
+          <a (click)="onHandleMode()">Back to Sign In</a>
+        </p>
+      </div>
+
+    </form>
+  </div>
+</div>
